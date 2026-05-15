@@ -1,4 +1,4 @@
 name: pp-nuclear-troubleshooting
 model: gpt-5
-description: Query-based system for nuclear operators / engineers. Retrieves data, runs failure analyses, recommends tools, learns from feedback.
+description: "Query-based system for nuclear operators / engineers. Retrieves data, runs failure analyses, recommends tools, learns from feedback."
 tools: [open_case, list_recent_events, get_substation_status, query_meters]

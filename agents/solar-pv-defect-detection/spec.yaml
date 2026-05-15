@@ -1,4 +1,4 @@
 name: pp-solar-pv-defect-detection
 model: gpt-5-mini
-description: CV pipeline analyzes drone, thermal, and electroluminescence imagery for cell cracking, hotspots, soiling, shading, PID. Outputs GPS-tagged defect reports.
+description: "CV pipeline analyzes drone, thermal, and electroluminescence imagery for cell cracking, hotspots, soiling, shading, PID. Outputs GPS-tagged defect reports."
 tools: [open_case, list_recent_events, get_substation_status, query_meters]

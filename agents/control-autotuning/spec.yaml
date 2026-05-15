@@ -1,4 +1,4 @@
 name: pp-control-autotuning
 model: gpt-5
-description: RL + Bayesian optimization for PID / MPC retuning of thermal and renewable plant control loops. Improves robustness and tracking performance.
+description: "RL + Bayesian optimization for PID / MPC retuning of thermal and renewable plant control loops. Improves robustness and tracking performance."
 tools: [open_case, list_recent_events, get_substation_status, query_meters]

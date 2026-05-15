@@ -1,4 +1,4 @@
 name: pp-nuclear-spare-part-reordering
 model: gpt-5-mini
-description: Forecasts spare part demand from work-order history, asset population, lead-time distributions. Optimizes reorder points and safety stock.
+description: "Forecasts spare part demand from work-order history, asset population, lead-time distributions. Optimizes reorder points and safety stock."
 tools: [open_case, list_recent_events, get_substation_status, query_meters]

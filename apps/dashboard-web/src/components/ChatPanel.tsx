@@ -6,22 +6,22 @@ type Persona = 'operator' | 'planner' | 'customer';
 
 const STARTERS: Record<Persona, string[]> = {
   operator: [
-    'Are there any outages right now on substation S-01?',
-    'Find suspicious meters that look like theft on S-02.',
-    'Show me solar backfeed and Volt-VAR risk on S-04.',
-    'Score transformer health on substation S-03.',
+    "Score today's PV-cell defect survey from drone imagery.",
+    "Why did the connector QA fail on solar string SS-117?",
+    "Diagnose the generation fault that tripped GT-03 last hour.",
+    "Investigate the DGA spike in transformer T-204."
   ],
   planner: [
-    'Plan a 5 MW demand response event for the next hour.',
-    'Which transformers need urgent inspection on S-05?',
-    'How many DER meters are over-voltage on S-04?',
-    'Stage a heat-wave demand response across opt-in residential.',
+    "Drift-check the control loops on the combined-cycle unit.",
+    "Forecast spare-parts demand for the next planned outage.",
+    "Pull the latest INPO operating experience for the new fuel cycle.",
+    "Walk me through the EOP-3 troubleshoot tree for SG-2 high level."
   ],
   customer: [
-    'Why was my August bill higher than July?',
-    "Is my power back on? My meter is on substation S-01.",
-    'Should I switch to a time-of-use tariff?',
-    'How does my usage compare to my neighbors?',
+    "When is the planned plant outage that affects my service?",
+    "How does the new solar farm change my power source?",
+    "Is the nuclear plant near my home operating safely?",
+    "What's being done to keep electricity reliable this summer?"
   ],
 };
 

@@ -1,31 +1,35 @@
-import { useState } from 'react';
-import { postJson, type Substation } from '../lib/api';
+import { useState, useEffect } from 'react';
+import { postJson, API_BASE, type Substation } from '../lib/api';
 
-const SCENARIOS = [
-  { id: 'pv-defect-batch', label: 'PV Defect Survey', agent: 'pp-solar-pv-defect-detection', hint: 'Process this morning\'s drone EL imagery — flag hotspots' },
-  { id: 'connector-qa', label: 'Connector QA', agent: 'pp-solar-pv-connector-quality', hint: 'Assess installer batch B-2024-09 X-rays' },
-  { id: 'fault-diagnosis', label: 'Generation Fault', agent: 'pp-generation-fault-diagnosis', hint: 'Steam-turbine vibration spike on Unit 3 — diagnose' },
-  { id: 'dga-spike', label: 'DGA Spike', agent: 'pp-transformer-dga-monitoring', hint: 'Acetylene rose 3× on GSU TX-7 — classify' },
-  { id: 'pid-tune', label: 'Control Loop Drift', agent: 'pp-control-autotuning', hint: 'Boiler pressure loop oscillating — propose retune' },
-  { id: 'nuc-troubleshoot', label: 'Nuclear Troubleshoot', agent: 'pp-nuclear-troubleshooting', hint: 'Reactor coolant pump seal flow trending up — investigate' },
-  { id: 'nuc-data-pull', label: 'Nuclear Data Pull', agent: 'pp-nuclear-data-retrieval', hint: 'Pull last 60d RCS chemistry against EPRI guidelines' },
-  { id: 'spare-forecast', label: 'Spare Parts Forecast', agent: 'pp-nuclear-spare-part-reordering', hint: 'Forecast next 90d spares for Unit 2 outage' },
-];
+interface ScenarioMeta {
+  id: string;
+  label: string;
+  agent: string;
+  hint: string;
+}
 
 export function ScenarioPanel({ onRan, substations }: { onRan: () => void; substations: Substation[] }) {
+  const [scenarios, setScenarios] = useState<ScenarioMeta[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const [last, setLast] = useState<string>('');
   const sub = substations[0]?.substation_id ?? '';
 
-  async function run(id: string) {
-    setBusy(id); setLast('');
+  useEffect(() => {
+    fetch(API_BASE + '/api/scenarios')
+      .then(r => r.json())
+      .then(setScenarios)
+      .catch(() => {});
+  }, []);
+
+  async function run(s: ScenarioMeta) {
+    setBusy(s.id); setLast('');
     try {
-      const body: any = id === 'storm-outage' ? { substation_id: sub, feeder_index: 7 }
-                       : id === 'theft'       ? { substation_id: sub, count: 3 }
-                       : id === 'heat-wave'   ? {}
+      const body: any = s.id === 'storm-outage' ? { substation_id: sub, feeder_index: 7 }
+                       : s.id === 'theft'       ? { substation_id: sub, count: 3 }
+                       : s.id === 'heat-wave'   ? {}
                        : { substation_id: sub };
-      const r = await postJson<any>(`/api/scenarios/${id}`, body);
-      setLast(`✓ ${id} → ${r.agent_dispatched ?? 'dispatched'}`);
+      const r = await postJson<any>(`/api/scenarios/${s.id}`, body);
+      setLast(`✓ ${s.id} → ${r.agent_dispatched ?? 'dispatched'}`);
       onRan();
     } catch (e: any) { setLast(`error: ${e.message}`); }
     finally { setBusy(null); }
@@ -38,11 +42,11 @@ export function ScenarioPanel({ onRan, substations }: { onRan: () => void; subst
         <span className="text-xs text-slate-500">click to inject + auto-dispatch agent</span>
       </div>
       <div className="grid grid-cols-4 gap-1.5 flex-1 overflow-y-auto">
-        {SCENARIOS.map(s => (
+        {scenarios.map(s => (
           <button
             key={s.id}
             disabled={!!busy}
-            onClick={() => run(s.id)}
+            onClick={() => run(s)}
             className="text-left p-1.5 rounded-lg bg-grid-bg border border-grid-border hover:border-grid-accent disabled:opacity-50 transition group"
             title={s.hint}
           >
@@ -51,8 +55,12 @@ export function ScenarioPanel({ onRan, substations }: { onRan: () => void; subst
             <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">{s.hint}</div>
           </button>
         ))}
+        {scenarios.length === 0 && (
+          <div className="col-span-4 text-xs text-slate-500 text-center py-4">Loading scenarios…</div>
+        )}
       </div>
       {last && <div className="text-xs text-grid-ok mt-1 truncate font-mono">{last}</div>}
     </div>
   );
 }
+

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { postJson, type Substation } from '../lib/api';
 
 const SCENARIOS = [
-  { id: 'storm-outage',     label: '⛈️ Storm Outage',         agent: 'outage-detection',       hint: 'Knocks a feeder offline' },
-  { id: 'theft',            label: '🕵️ Theft Pattern',        agent: 'theft-detection',        hint: 'Plant tampers + flat reads' },
-  { id: 'der-overvoltage',  label: '☀️ Solar Backfeed',       agent: 'der-management',         hint: 'Volt-VAR risk on secondaries' },
-  { id: 'heat-wave',        label: '🔥 Heat Wave',            agent: 'demand-response',        hint: 'Trigger DR cohort selection' },
-  { id: 'transformer-aging',label: '🔧 Transformer Aging',    agent: 'predictive-maintenance', hint: 'Score asset health' },
-  { id: 'cyber-burst',      label: '🛡️ Cyber Anomaly',        agent: 'grid-cybersecurity',     hint: 'Unauthorized firmware queries' },
-  { id: 'ev-surge',         label: '🔌 EV Plug-in Surge',     agent: 'ev-load-orchestration',  hint: 'Evening EV charging burst' },
-  { id: 'weather-alert',    label: '🌦️ Weather Alert',         agent: 'weather-impact',         hint: 'Heat warning + storm watch' },
+  { id: 'pv-defect-batch', label: 'PV Defect Survey', agent: 'pp-solar-pv-defect-detection', hint: 'Process this morning\'s drone EL imagery — flag hotspots' },
+  { id: 'connector-qa', label: 'Connector QA', agent: 'pp-solar-pv-connector-quality', hint: 'Assess installer batch B-2024-09 X-rays' },
+  { id: 'fault-diagnosis', label: 'Generation Fault', agent: 'pp-generation-fault-diagnosis', hint: 'Steam-turbine vibration spike on Unit 3 — diagnose' },
+  { id: 'dga-spike', label: 'DGA Spike', agent: 'pp-transformer-dga-monitoring', hint: 'Acetylene rose 3× on GSU TX-7 — classify' },
+  { id: 'pid-tune', label: 'Control Loop Drift', agent: 'pp-control-autotuning', hint: 'Boiler pressure loop oscillating — propose retune' },
+  { id: 'nuc-troubleshoot', label: 'Nuclear Troubleshoot', agent: 'pp-nuclear-troubleshooting', hint: 'Reactor coolant pump seal flow trending up — investigate' },
+  { id: 'nuc-data-pull', label: 'Nuclear Data Pull', agent: 'pp-nuclear-data-retrieval', hint: 'Pull last 60d RCS chemistry against EPRI guidelines' },
+  { id: 'spare-forecast', label: 'Spare Parts Forecast', agent: 'pp-nuclear-spare-part-reordering', hint: 'Forecast next 90d spares for Unit 2 outage' },
 ];
 
 export function ScenarioPanel({ onRan, substations }: { onRan: () => void; substations: Substation[] }) {
@@ -47,7 +47,7 @@ export function ScenarioPanel({ onRan, substations }: { onRan: () => void; subst
             title={s.hint}
           >
             <div className="text-xs font-medium text-grid-accent leading-tight">{busy === s.id ? '⏳' : s.label}</div>
-            <div className="text-xs text-grid-info font-mono mt-0.5">→ ami-{s.agent}</div>
+            <div className="text-xs text-grid-info font-mono mt-0.5">→ {s.agent}</div>
             <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">{s.hint}</div>
           </button>
         ))}

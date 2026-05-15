@@ -1,0 +1,4 @@
+name: pp-nuclear-design-validation
+model: gpt-5
+description: Methodology + tooling to safely integrate AI tools into nuclear design processes. V&V framework with auditable evidence trails.
+tools: [open_case, list_recent_events, get_substation_status, query_meters]

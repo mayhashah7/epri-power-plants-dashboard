@@ -1,0 +1,4 @@
+name: pp-generation-fault-diagnosis
+model: gpt-5
+description: Data-driven fault-signature library across thermal / hydro / wind / solar / nuclear fleets. Rapid root-cause classification from sensor traces.
+tools: [open_case, list_recent_events, get_substation_status, query_meters]

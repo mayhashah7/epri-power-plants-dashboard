@@ -1,0 +1,4 @@
+name: pp-transformer-dga-monitoring
+model: gpt-5
+description: Continuous DGA condition monitoring: gas ratios + temp + pressure → IEC 60599 / Duval fault classification with severity scoring.
+tools: [open_case, list_recent_events, get_substation_status, query_meters]

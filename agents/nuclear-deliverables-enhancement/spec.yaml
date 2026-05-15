@@ -1,0 +1,4 @@
+name: pp-nuclear-deliverables-enhancement
+model: gpt-5-mini
+description: LLM identifies scenarios and drafts technical reports, risk analyses, and operational guidance. Improves throughput and consistency for nuclear knowledge work.
+tools: [open_case, list_recent_events, get_substation_status, query_meters]

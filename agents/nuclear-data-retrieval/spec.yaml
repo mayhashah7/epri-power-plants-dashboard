@@ -1,0 +1,4 @@
+name: pp-nuclear-data-retrieval
+model: gpt-5-chat
+description: Natural-language queries over plant historian, EAM, training records. Returns precise extracts with provenance citations.
+tools: [open_case, list_recent_events, get_substation_status, query_meters]

@@ -320,3 +320,14 @@ SCENARIOS = {
     "nuc-data-pull": scenario_nuc_data_pull,
     "spare-forecast": scenario_spare_forecast,
 }
+
+SCENARIO_META = [
+    {"id": "pv-defect-batch",  "label": "🌞 PV Defect Survey",    "agent": "pp-solar-pv-defect-detection",      "hint": "Process drone EL imagery — flag hotspots"},
+    {"id": "connector-qa",     "label": "🔩 Connector QA",        "agent": "pp-solar-pv-connector-quality",     "hint": "Assess installer batch B-2024-09 X-rays"},
+    {"id": "fault-diagnosis",  "label": "⚙️ Generation Fault",    "agent": "pp-generation-fault-diagnosis",     "hint": "Steam-turbine vibration spike on Unit 3 — diagnose"},
+    {"id": "dga-spike",        "label": "⚡ DGA Spike",           "agent": "pp-transformer-dga-monitoring",     "hint": "Acetylene rose 3× on GSU TX-7 — classify"},
+    {"id": "pid-tune",         "label": "🎛️ Control Loop Drift",  "agent": "pp-control-autotuning",             "hint": "Boiler pressure loop oscillating — propose retune"},
+    {"id": "nuc-troubleshoot", "label": "⚛️ Nuclear Troubleshoot","agent": "pp-nuclear-troubleshooting",        "hint": "Reactor coolant pump seal flow trending up"},
+    {"id": "nuc-data-pull",    "label": "📡 Nuclear Data Pull",   "agent": "pp-nuclear-data-retrieval",         "hint": "Pull last 60d RCS chemistry against EPRI guidelines"},
+    {"id": "spare-forecast",   "label": "🏭 Spare Parts Forecast","agent": "pp-nuclear-spare-part-reordering",  "hint": "Forecast next 90d spares for Unit 2 outage"},
+]
